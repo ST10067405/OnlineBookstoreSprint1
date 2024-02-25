@@ -9,6 +9,7 @@ namespace EpicBookstore.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            Database.EnsureCreated(); // This ensures that new tables are created.
         }
 
         public DbSet<AddressModel> Address { get; set; }
