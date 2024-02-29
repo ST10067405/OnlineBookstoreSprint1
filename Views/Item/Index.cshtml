@@ -1,23 +1,36 @@
-﻿@* @model IEnumerable<EpicBookstore.Models.ItemModel>
+﻿@model IEnumerable<EpicBookstore.Models.ItemModel>
 
-@page *@
-@model IEnumerable<EpicBookstore.Models.ItemModel>
+<h1>Discover</h1>
 
-<h1>Book Store</h1>
-
-@* <div class="book-grid">
-    @foreach (var book in Model)
+<div class="book-grid">
+    @if (Model != null)
     {
-        <div class="book-tile">
-            <img src="@book.CoverImageUrl" alt="@book.Name">
-            <h2>@book.Title</h2>
-            <p>By @book.Author</p>
-            <p>Price: @book.Price.ToString("C")</p>
-            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("BookDetails", "BookStore", new { id = book.Id })'">View Details</button>
-            <button type="button" class="btn btn-success" onclick="addToCart('@book.Title', '@book.Price')">Add to Cart</button>
-        </div>
+        @foreach (var book in Model)
+        {
+            <div class="book-tile">
+                <img src="@book.CoverImageUrl" alt="@book.Name">
+                <h2>@book.Name</h2>
+                <p class="author">By @book.Author</p>
+                <p class="price">@book.Price.ToString("C")</p>
+                <div class="tile-button-container">
+                    <button type="button" class="btn-tile-btn" onclick="location.href='@Url.Action("BookDetails", "BookStore", new { id = book.Id })'">
+                        <i class='bx bxs-detail bx-sm'></i>
+                    </button>
+                    <button type="button" class="btn-tile-btn" onclick="addToCart('@book.Name', '@book.Price')">
+                        <i class='bx bxs-cart-add bx-sm'></i>
+                    </button>
+                </div>
+            </div>
+        }
     }
-</div> *@
+    else
+    {
+        <p>We dont have books.</p>
+        <p>
+            <button asp-action="Create">Add a new book</button>
+        </p>
+    }
+</div>
 
 <script type="text/javascript">
     function addToCart(bookTitle, bookPrice) {
@@ -26,16 +39,18 @@
     }
 </script>
 
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <style>
     .book-grid {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-around;
+        align-content: flex-start;
+        justify-content: left;
     }
 
     .book-tile {
         width: 200px;
-        height: 350px;
+        height: 400px;
         margin: 10px;
         border: 1px solid #ccc;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
@@ -43,8 +58,44 @@
         padding: 10px;
     }
 
-    .book-tile img {
-        width: 100%;
-        height: auto;
+        .book-tile img {
+            width: 100%;
+            height: auto;
+        }
+
+        .book-tile h2 {
+            font-size: 25px;
+            justify-content: center;
+            margin-bottom: 1px;
+        }
+
+    .tile-button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        margin-top: 20px;
     }
+
+    .btn-tile-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        background: #d34567;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .author {
+        margin-bottom: 0px;
+    }
+
+    .price {
+        margin-top: 0px;
+        color: red;
+        text-align: center;
+        font-size: 25px;
+    }
+
 </style>
