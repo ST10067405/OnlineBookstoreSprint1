@@ -9,7 +9,7 @@
     @foreach (var book in Model)
     {
         <div class="book-tile">
-            <img src="@book.CoverImageUrl" alt="@book.Title">
+            <img src="@book.CoverImageUrl" alt="@book.Name">
             <h2>@book.Title</h2>
             <p>By @book.Author</p>
             <p>Price: @book.Price.ToString("C")</p>
