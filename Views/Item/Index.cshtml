@@ -1,0 +1,50 @@
+﻿@* @model IEnumerable<EpicBookstore.Models.ItemModel>
+
+@page *@
+@model IEnumerable<EpicBookstore.Models.ItemModel>
+
+<h1>Book Store</h1>
+
+<div class="book-grid">
+    @foreach (var book in Model)
+    {
+        <div class="book-tile">
+            <img src="@book.CoverImageUrl" alt="@book.Title">
+            <h2>@book.Title</h2>
+            <p>By @book.Author</p>
+            <p>Price: @book.Price.ToString("C")</p>
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("BookDetails", "BookStore", new { id = book.Id })'">View Details</button>
+            <button type="button" class="btn btn-success" onclick="addToCart('@book.Title', '@book.Price')">Add to Cart</button>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    function addToCart(bookTitle, bookPrice) {
+        // Add code here to add the book to the cart
+        alert("Added " + bookTitle + " to cart. The price is $" + bookPrice);
+    }
+</script>
+
+<style>
+    .book-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .book-tile {
+        width: 200px;
+        height: 350px;
+        margin: 10px;
+        border: 1px solid #ccc;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 10px;
+    }
+
+    .book-tile img {
+        width: 100%;
+        height: auto;
+    }
+</style>
