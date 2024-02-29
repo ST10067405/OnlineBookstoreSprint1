@@ -7,16 +7,15 @@
     {
         @foreach (var book in Model)
         {
-            <div class="book-tile">
-                <img src="@book.CoverImageUrl" alt="@book.Name">
-                <h2>@book.Name</h2>
-                <p class="author">By @book.Author</p>
-                <p class="price">@book.Price.ToString("C")</p>
-                <div class="tile-button-container">
-                    <button type="button" class="btn-tile-btn" onclick="location.href='@Url.Action("BookDetails", "BookStore", new { id = book.Id })'">
-                        <i class='bx bxs-detail bx-sm'></i>
-                    </button>
-                    <button type="button" class="btn-tile-btn" onclick="addToCart('@book.Name', '@book.Price')">
+            <div>
+                <div class="book-tile" onclick="window.location.href='@Url.Action("Details", "Item", new { id = book.Id })'">
+                    <img src="@book.CoverImageUrl" alt="@book.Name">
+                    <h2>@book.Name</h2>
+                    <p class="author">By @book.Author</p>
+                    <p class="price">@book.Price.ToString("C")</p>
+                </div>
+                <div class="tile-btn-container">
+                    <button type="button" class="tile-btn" onclick="addToCart('@book.Name', '@book.Price')">
                         <i class='bx bxs-cart-add bx-sm'></i>
                     </button>
                 </div>
@@ -39,7 +38,9 @@
     }
 </script>
 
+@*For Icons*@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 <style>
     .book-grid {
         display: flex;
@@ -56,6 +57,7 @@
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         text-align: center;
         padding: 10px;
+        transition: transform 0.3s ease;
     }
 
         .book-tile img {
@@ -69,23 +71,32 @@
             margin-bottom: 1px;
         }
 
-    .tile-button-container {
+        .book-tile:hover {
+            transform: scale(1.05);
+        }
+
+    .tile-btn-container {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 25px;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
-    .btn-tile-btn {
-        padding: 10px 20px;
+    .tile-btn {
+        padding: 10px 30px;
         font-size: 14px;
         background: #d34567;
         color: #fff;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        transition: transform 0.3s ease;
     }
+
+        .tile-btn:hover {
+            transform: scale(1.05);
+        }
 
     .author {
         margin-bottom: 0px;

@@ -26,23 +26,23 @@ namespace EpicBookstore.Controllers
             return View(await _context.Item.ToListAsync());
         }
 
-        //// GET: Item/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Item/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var itemModel = await _context.Item
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (itemModel == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var itemModel = await _context.Item
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (itemModel == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(itemModel);
-        //}
+            return View(itemModel);
+        }
 
         // GET: Item/Create
         public IActionResult Create()
