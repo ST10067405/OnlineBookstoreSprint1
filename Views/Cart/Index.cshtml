@@ -1,0 +1,89 @@
+﻿@model IEnumerable<EpicBookstore.Models.CartModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@* <h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemModel.ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CartId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CartId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CartId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table> *@
+
+@if (Model != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ItemModel.Name</td>
+                    <td>@item.ItemModel.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>
+                        <form asp-action="RemoveFromCart" asp-route-id="@item.CartId">
+                            <button type="submit">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p>Total: @Model.Sum(i => i.ItemModel.Price * i.Quantity)</p>
+    <a asp-action="Checkout">Checkout</a>
+}
+else
+{
+    <p>You don't have any items in your cart.</p>
+}

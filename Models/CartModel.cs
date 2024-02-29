@@ -15,6 +15,6 @@ namespace EpicBookstore.Models
         [ForeignKey(nameof(ItemId))]
         public ItemModel ItemModel { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

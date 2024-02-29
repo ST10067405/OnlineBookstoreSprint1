@@ -17,6 +17,6 @@ namespace EpicBookstore.Models
         public int Stock { get; set; }
         [Required]
         public string ISBN { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

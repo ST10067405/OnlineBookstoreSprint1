@@ -13,6 +13,6 @@ namespace EpicBookstore.Models
         public double TotalPrice { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }
