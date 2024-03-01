@@ -238,25 +238,26 @@
     </style>
 </head>
 <body>
-
+   
     <div class="item-container">
         <img src="@Model.CoverImageUrl" alt="Item Image" class="item-image">
         <div class="item-details">
             <h2 class="item-title">@Model.Name</h2>
-            <p class="item-description">@Model.Description</p>
-            <p class="item-price">Price: @Model.Price</p>
-            <p class="item-quantity">Quantity: @Model.Stock</p>
         </div>
         <div>
-            <p>Price: @Model.Price</p>
-            @* <p>Quantity: @Model.Quantity</p> *@
-            <button class="delete-button">Delete</button>
+            <p>Price: @Model.Price.ToString("C")</p>
+            <div class="tile-btn-container">
+                <button type="button" class="tile-btn" onclick="addToCart('@Model.Name', '@Model.Price')">
+                    <i class='bx bxs-cart-add bx-sm'></i>
+                </button>
         </div>
     </div>
-   @*  <div class="tile-btn-container">
-        <button type="button" class="tile-btn" onclick="addToCart('@book.Name', '@book.Price')">
-            <i class='bx bxs-cart-add bx-sm'></i>
-        </button> *@
-
+    </div>
+    <div class="item-details">
+        <h2 class="item-details">Description</h2>
+        <p class="item-description">@Model.Description</p>
+    </div>
+        
 </body>
 </html>
+
