@@ -204,8 +204,7 @@
 
                 @if (Model.Stock > 0)
                 {
-                    <form action="/Cart/AddItem" method="post">
-                        <input type="hidden" name="id" value="@Model.Id" />
+                    <form asp-action="AddToCart" asp-route-id="@Model.Id" method="post">
                         <button type="submit" class="btn btn-primary add-to-cart-button">Add to Cart</button>
                     </form>
                 }

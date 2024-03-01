@@ -52,7 +52,7 @@ namespace EpicBookstore.Controllers
         }
 
         // GET: Item/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> ItemDetails(int? id)
         {
             if (id == null)
             {
