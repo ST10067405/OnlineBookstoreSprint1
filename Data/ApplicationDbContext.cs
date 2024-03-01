@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EpicBookstore.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -16,20 +16,6 @@ namespace EpicBookstore.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-
-            builder.Entity<ApplicationUser>(entity =>
-            {
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasMaxLength(50); // adjust length as needed
-
-                entity.Property(e => e.LastName)
-                    .IsRequired()
-                    .HasMaxLength(50); // adjust length as needed
-            });
         }
 
         public DbSet<AddressModel> Address { get; set; }
