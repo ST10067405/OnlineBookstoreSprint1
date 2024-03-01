@@ -165,7 +165,6 @@ namespace EpicBookstore.Controllers
     //}
 
     [Authorize]
-
     public class CartController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -180,17 +179,22 @@ namespace EpicBookstore.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var user = "1";//await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User);
 
-            var cartItems = _context.Cart
-                .Include(c => c.ItemModel)
-                .Where(c => c.UserId == user)
+            //var cartItems = _context.Cart
+            //    .Include(c => c.ItemModel)
+            //    .Where(c => c.UserId == user.Id)
+            //    .ToListAsync();
+
+            //return View(cartItems);
+            List<CartModel> cartModels = await _context.Cart
+                .Where(u => u.UserId == user.Id)
                 .ToListAsync();
 
-            return View(cartItems);
+            return View(cartModels);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("RemoveFromCart")]
         public IActionResult RemoveFromCart(int id)
         {
             var cartItem = _context.Cart.Find(id);

@@ -70,15 +70,6 @@ namespace EpicBookstore.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
-            [StringLength(50, ErrorMessage = "First Name is a maximum of 50 characters long")]
-            [Display(Name = "FirstName")]
-            public string FirstName { get; set; }
-
-            [Required]
-            [StringLength(50, ErrorMessage = "Surname is a maximum of 50 characters long")]
-            [Display(Name = "Surname")]
-            public string Surname { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
