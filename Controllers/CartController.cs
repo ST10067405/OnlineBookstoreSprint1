@@ -181,17 +181,34 @@ namespace EpicBookstore.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            //var cartItems = _context.Cart
-            //    .Include(c => c.ItemModel)
-            //    .Where(c => c.UserId == user.Id)
-            //    .ToListAsync();
-
-            //return View(cartItems);
             List<CartModel> cartModels = await _context.Cart
+                .Include(c => c.ItemModel)
                 .Where(u => u.UserId == user.Id)
                 .ToListAsync();
 
             return View(cartModels);
+        }
+
+        [HttpPost, ActionName("AddToCart")]
+        public async Task<IActionResult> AddToCart(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var item = _context.Item.Find(id);
+
+            if (item != null)
+            {
+                var cartItem = new CartModel
+                {
+                    UserId = user.Id,
+                    ItemModel = item,
+                    Quantity = 1
+                };
+
+                _context.Cart.Add(cartItem);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost, ActionName("RemoveFromCart")]
@@ -205,31 +222,7 @@ namespace EpicBookstore.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Cart");
+            return RedirectToAction(nameof(Index));
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddToCart(int id)
-        //{
-        //    var user = await _userManager.GetUserAsync(User);
-
-        //    var item = _context.Item.Find(id);
-
-        //    if (item != null)
-        //    {
-        //        var cartItem = new CartModel
-        //        {
-        //            UserId = user.Id,
-        //            ItemModel = item,
-        //            Quantity = 1
-        //        };
-
-        //        _context.Cart.Add(cartItem);
-        //        _context.SaveChanges();
-        //    }
-
-        //    return RedirectToAction("Cart");
-        //}
     }
-
 }

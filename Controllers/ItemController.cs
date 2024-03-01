@@ -29,30 +29,8 @@ namespace EpicBookstore.Controllers
             return View(await _context.Item.ToListAsync());
         }
 
-        [HttpPost, ActionName("AddToCart")]
-        public async Task<IActionResult> AddToCart(int id)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            var item = _context.Item.Find(id);
-
-            if (item != null)
-            {
-                var cartItem = new CartModel
-                {
-                    UserId = user.Id,
-                    ItemModel = item,
-                    Quantity = 1
-                };
-
-                _context.Cart.Add(cartItem);
-                _context.SaveChanges();
-            }
-
-            return RedirectToAction(nameof(Index));
-        }
-
         // GET: Item/Details/5
-        public async Task<IActionResult> ItemDetails(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
