@@ -204,12 +204,27 @@ namespace EpicBookstore.Controllers
             return RedirectToAction("Cart");
         }
 
-        public IActionResult Checkout()
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(int id)
         {
-            // Here you can implement the checkout logic
-            // For example, you can create an OrderModel and OrderItemModel records
+            var user = await _userManager.GetUserAsync(User);
 
-            return View();
+            var item = _context.Item.Find(id);
+
+            if (item != null)
+            {
+                var cartItem = new CartModel
+                {
+                    UserId = user.Id,
+                    ItemModel = item,
+                    Quantity = 1
+                };
+
+                _context.Cart.Add(cartItem);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Cart");
         }
     }
 
