@@ -1,4 +1,5 @@
-﻿@model IEnumerable<EpicBookstore.Models.ItemModel>
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<EpicBookstore.Models.ItemModel>
 
 <h1>Discover</h1>
 
@@ -15,9 +16,12 @@
                     <p class="price">@book.Price.ToString("C")</p>
                 </div>
                 <div class="tile-btn-container">
-                    <button type="button" class="tile-btn" onclick="addToCart('@book.Name', '@book.Price')">
-                        <i class='bx bxs-cart-add bx-sm'></i>
-                    </button>
+                    <form asp-action="AddToCart" asp-route-id="@book.Id" method="post">
+                        <input type="hidden" name="id" value="@book.Id" />
+                        <button type="button" class="tile-btn">
+                            <i class='bx bxs-cart-add bx-sm'></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         }
@@ -25,18 +29,11 @@
     else
     {
         <p>We dont have books.</p>
-        <p>
+        <d>
             <button asp-action="Create">Add a new book</button>
-        </p>
+        </d>
     }
 </div>
-
-<script type="text/javascript">
-    function addToCart(bookTitle, bookPrice) {
-        // Add code here to add the book to the cart
-        alert("Added " + bookTitle + " to cart. The price is $" + bookPrice);
-    }
-</script>
 
 @*For Icons*@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -86,7 +83,7 @@
     .tile-btn {
         padding: 10px 30px;
         font-size: 14px;
-        background: #d34567;
+        background: rgb(121, 191, 67);
         color: #fff;
         border: none;
         border-radius: 5px;

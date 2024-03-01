@@ -180,16 +180,11 @@ namespace EpicBookstore.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-        public async Task<IActionResult> Cart()
-        {
-            var user = await _userManager.GetUserAsync(User);
+            var user = "1";//await _userManager.GetUserAsync(User);
 
             var cartItems = _context.Cart
                 .Include(c => c.ItemModel)
-                .Where(c => c.UserId == user.Id)
+                .Where(c => c.UserId == user)
                 .ToListAsync();
 
             return View(cartItems);

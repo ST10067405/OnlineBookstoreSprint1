@@ -8,22 +8,49 @@ using Microsoft.EntityFrameworkCore;
 using EpicBookstore.Data;
 using EpicBookstore.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Identity;
 
 namespace EpicBookstore.Controllers
 {
     public class ItemController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ItemController(ApplicationDbContext context)
+        public ItemController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Item
         public async Task<IActionResult> Index()
         {
             return View(await _context.Item.ToListAsync());
+        }
+
+        [HttpPost, ActionName("AddToCart")]
+        public async Task<IActionResult> AddToCart(int id)
+        {
+            Console.WriteLine($"{id}");
+            var user = "1";//await _userManager.GetUserAsync(User);
+
+            var item = _context.Item.Find(id);
+
+            if (item != null)
+            {
+                var cartItem = new CartModel
+                {
+                    UserId = user,//.Id,
+                    ItemModel = item,
+                    Quantity = 1
+                };
+
+                _context.Cart.Add(cartItem);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Item/Details/5
@@ -87,7 +114,7 @@ namespace EpicBookstore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Stock,ISBN,UserId")] ItemModel itemModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Stock,ISBN")] ItemModel itemModel)
         {
             if (id != itemModel.Id)
             {
