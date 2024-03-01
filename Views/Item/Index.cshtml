@@ -9,7 +9,7 @@
         @foreach (var book in Model)
         {
             <div>
-                <div class="book-tile" onclick="window.location.href='@Url.Action("Details", "Item", new { id = book.Id })'">
+                <div class="book-tile" onclick="window.location.href='@Url.Action("ItemDetails", "Item", new { id = book.Id })'">
                     <img src="@book.CoverImageUrl" alt="@book.Name">
                     <h2>@book.Name</h2>
                     <p class="author">By @book.Author</p>
@@ -17,8 +17,7 @@
                 </div>
                 <div class="tile-btn-container">
                     <form asp-action="AddToCart" asp-route-id="@book.Id" method="post">
-                        <input type="hidden" name="id" value="@book.Id" />
-                        <button type="button" class="tile-btn">
+                        <button type="submit" class="tile-btn">
                             <i class='bx bxs-cart-add bx-sm'></i>
                         </button>
                     </form>

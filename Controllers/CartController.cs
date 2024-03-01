@@ -208,28 +208,28 @@ namespace EpicBookstore.Controllers
             return RedirectToAction("Cart");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddToCart(int id)
-        {
-            var user = await _userManager.GetUserAsync(User);
+        //[HttpPost]
+        //public async Task<IActionResult> AddToCart(int id)
+        //{
+        //    var user = await _userManager.GetUserAsync(User);
 
-            var item = _context.Item.Find(id);
+        //    var item = _context.Item.Find(id);
 
-            if (item != null)
-            {
-                var cartItem = new CartModel
-                {
-                    UserId = user.Id,
-                    ItemModel = item,
-                    Quantity = 1
-                };
+        //    if (item != null)
+        //    {
+        //        var cartItem = new CartModel
+        //        {
+        //            UserId = user.Id,
+        //            ItemModel = item,
+        //            Quantity = 1
+        //        };
 
-                _context.Cart.Add(cartItem);
-                _context.SaveChanges();
-            }
+        //        _context.Cart.Add(cartItem);
+        //        _context.SaveChanges();
+        //    }
 
-            return RedirectToAction("Cart");
-        }
+        //    return RedirectToAction("Cart");
+        //}
     }
 
 }

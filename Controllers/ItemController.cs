@@ -32,16 +32,14 @@ namespace EpicBookstore.Controllers
         [HttpPost, ActionName("AddToCart")]
         public async Task<IActionResult> AddToCart(int id)
         {
-            Console.WriteLine($"{id}");
-            var user = "1";//await _userManager.GetUserAsync(User);
-
+            var user = await _userManager.GetUserAsync(User);
             var item = _context.Item.Find(id);
 
             if (item != null)
             {
                 var cartItem = new CartModel
                 {
-                    UserId = user,//.Id,
+                    UserId = user.Id,
                     ItemModel = item,
                     Quantity = 1
                 };
