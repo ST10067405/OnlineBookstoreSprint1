@@ -1,0 +1,224 @@
+﻿@* 
+@model EpicBookstore.Models.ItemModel
+
+@{
+    ViewData["Title"] = "ItemDetails";
+}
+
+<div class="item-details-container">
+    @if (Model != null)
+    {
+        <h1 class="item-details-header">Item Details</h1>
+
+        <div class="item-details-content">
+            <h2 class="item-details-title">@Model.Name</h2>
+            <p class="item-details-description">@Model.Description</p>
+            <p class="item-details-author">Author: @Model.Author</p>
+            <p class="item-details-price">Price: @Model.Price.ToString("C")</p>
+            <p class="item-details-stock">Stock: @Model.Stock</p>
+            <p class="item-details-isbn">ISBN: @Model.ISBN</p>
+
+            @if (Model.Stock > 0)
+            {
+                <form action="/Cart/AddItem" method="post">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-primary add-to-cart-button">Add to Cart</button>
+                </form>
+            }
+            else
+            {
+                <p class="item-details-stock-message">Out of Stock</p>
+            }
+        
+        else
+        {
+            <p class="item-details-message">Nothing to display</p>
+        }
+        
+    </div>
+    }
+</div>
+
+
+    <style>
+        .item-details-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 50px 0;
+        }
+
+        .item-details-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .item-details-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .item-details-description {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .item-details-price {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        .item-details-stock {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        .item-details-isbn {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        .add-to-cart-button {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .item-details-message {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        .item-details-stock-message {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: red;
+        }
+    </style>
+
+ *@
+
+            @model EpicBookstore.Models.ItemModel
+
+@{
+    ViewData["Title"] = "ItemDetails";
+}
+
+<head>
+    <style>
+        .item-details-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 50px 0;
+        }
+
+        .item-details-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .item-details-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .item-details-description {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .item-details-price {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        .item-details-stock {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        .item-details-isbn {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        .add-to-cart-button {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .item-details-message {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        .item-details-stock-message {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="item-details-container">
+        @if (Model != null)
+        {
+            <h1 class="item-details-header">Item Details</h1>
+
+            <div class="item-details-content">
+                <h2 class="item-details-title">@Model.Name</h2>
+                <p class="item-details-description">@Model.Description</p>
+                <p class="item-details-author">Author: @Model.Author</p>
+                <p class="item-details-price">Price: @Model.Price.ToString("C")</p>
+                <p class="item-details-stock">Stock: @Model.Stock</p>
+                <p class="item-details-isbn">ISBN: @Model.ISBN</p>
+
+                @if (Model.Stock > 0)
+                {
+                    <form action="/Cart/AddItem" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn btn-primary add-to-cart-button">Add to Cart</button>
+                    </form>
+                }
+                else
+                {
+                    <p class="item-details-stock-message">Out of Stock</p>
+                }
+            
+            else
+            {
+                <p class="item-details-message">Nothing to display</p>
+            }
+        }
+    </div>
+    }
+</body>
