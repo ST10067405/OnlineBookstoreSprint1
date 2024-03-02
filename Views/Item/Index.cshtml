@@ -1,11 +1,21 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model IEnumerable<EpicBookstore.Models.ItemModel>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 <h1>Discover</h1>
 
 <div class="book-grid">
     @if (Model != null)
     {
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="admin-buttons">
+                <a asp-action="Create" class="btn btn-primary">Add Book</a>
+                <!-- Other admin buttons for delete and edit can go here -->
+            </div>
+        }
         @foreach (var book in Model)
         {
             <div>
@@ -15,13 +25,24 @@
                     <p class="author">By @book.Author</p>
                     <p class="price">@book.Price.ToString("C")</p>
                 </div>
-                <div class="tile-btn-container">
-                    <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@book.Id" method="post">
-                        <button type="submit" class="tile-btn">
-                            <i class='bx bxs-cart-add bx-sm'></i>
-                        </button>
-                    </form>
-                </div>
+                @if (!SignInManager.IsSignedIn(User))
+                {
+                    <div class="tile-btn-container">
+                        <a style="" href="/Identity/Account/Login" class="tile-btn">
+                            Login to <i class='bx bxs-cart-add bx-sm'></i>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="tile-btn-container">
+                        <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@book.Id" method="post">
+                            <button type="submit" class="tile-btn">
+                                <i class='bx bxs-cart-add bx-sm'></i>
+                            </button>
+                        </form>
+                    </div>
+                }
             </div>
         }
     }
@@ -38,6 +59,17 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 <style>
+    a {
+        text-decoration: inherit;
+        color: inherit;
+    }
+
+        a:hover {
+            text-decoration: inherit;
+            color: black;
+            cursor: inherit;
+        }
+
     .book-grid {
         display: flex;
         flex-wrap: wrap;
@@ -92,6 +124,7 @@
 
         .tile-btn:hover {
             transform: scale(1.05);
+            color: black;
         }
 
     .author {

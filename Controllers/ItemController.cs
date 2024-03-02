@@ -157,5 +157,13 @@ namespace EpicBookstore.Controllers
         {
             return _context.Item.Any(e => e.Id == id);
         }
+
+        //Search
+        [HttpGet, ActionName("Search")]
+        public IActionResult Search(string query)
+        {
+            var items = _context.Item.Where(i => i.Name.Contains(query)).ToList();
+            return View(items);
+        }
     }
 }

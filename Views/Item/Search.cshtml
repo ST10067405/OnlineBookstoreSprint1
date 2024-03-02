@@ -1,0 +1,26 @@
+﻿@model IEnumerable<EpicBookstore.Models.ItemModel>
+
+<h1>Search Results</h1>
+
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li style="list-style-type: none;">
+                <div style="display: flex; align-items: center;">
+                    <img src="@item.CoverImageUrl" alt="@item.Name" style="max-width: 100px; margin-right: 10px;">
+                    <div>
+                        <h3>@item.Name</h3>
+                        <h5>PRICE: @item.Price.ToString("C")</h5>
+                        <h5>ISBN: @item.ISBN</h5>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No results found.</p>
+}
