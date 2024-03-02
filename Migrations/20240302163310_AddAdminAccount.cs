@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System.Text;
 
 #nullable disable
 
-namespace EpicBookstore.Data.Migrations
+namespace EpicBookstore.Migrations
 {
     /// <inheritdoc />
     public partial class AddAdminAccount : Migration

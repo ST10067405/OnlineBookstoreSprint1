@@ -10,7 +10,7 @@ namespace EpicBookstore.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            Database.EnsureCreated(); // This ensures that new tables are created.
+            Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

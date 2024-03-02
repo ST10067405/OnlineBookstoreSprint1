@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EpicBookstore.Data.Migrations
+namespace EpicBookstore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240302150535_AddAdminAccount")]
+    [Migration("20240302163310_AddAdminAccount")]
     partial class AddAdminAccount
     {
         /// <inheritdoc />
