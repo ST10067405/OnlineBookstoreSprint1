@@ -94,8 +94,7 @@ namespace EpicBookstore.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AttemptDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SuccessFlag = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    SuccessFlag = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using SQLitePCL;
+using EpicBookstore.Data;
+using EpicBookstore.Models;
 
 namespace EpicBookstore.Areas.Identity.Pages.Account
 {
@@ -21,11 +24,13 @@ namespace EpicBookstore.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, ApplicationDbContext context)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         /// <summary>
@@ -112,10 +117,27 @@ namespace EpicBookstore.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
+                //logging into database table if the attempt was successful or not
+                var log = new LogAttemptModel
+                {
+                    UserName = Input.Email,
+                    AttemptDateTime = DateTime.UtcNow,
+                    SuccessFlag = result.Succeeded,
+
+                };
+                _context.LogAttempt.Add(log);
+                _context.SaveChanges();
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
+                }
+                else
+                {
+                    // Log unsuccessful login attempt
+                    _logger.LogWarning("Invalid login attempt for email: {Email}", Input.Email);
                 }
                 if (result.RequiresTwoFactor)
                 {

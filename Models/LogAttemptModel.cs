@@ -14,7 +14,5 @@ namespace EpicBookstore.Models
         public DateTime AttemptDateTime { get; set; }
         [Required]
         public bool SuccessFlag { get; set; }
-        [Required]
-        public string UserId { get; set; }
     }
 }
