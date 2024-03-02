@@ -8,6 +8,7 @@ namespace EpicBookstore.Models
         [Key]
         [Required]
         public int CartId { get; set; }
+        [Range(0, double.MaxValue)]
         public double TotalPrice { get; set; }
         public int Quantity { get; set; }
         [Required]

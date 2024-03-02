@@ -1,0 +1,73 @@
+﻿@model IEnumerable<EpicBookstore.Models.ItemModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Admin Dashboard</h1>
+
+<p>
+    <a class="btn" asp-action="Create">Create New</a>
+</p>
+<div class="book-container">
+    @foreach (var item in Model)
+    {
+        <div class="book">
+            <img src="@item.CoverImageUrl" alt="@item.Name" class="cover-image" />
+            <div class="book-details">
+                <h2>@item.Name</h2>
+                <p><strong>Author:</strong> @item.Author</p>
+                <p><strong>Price:</strong> @item.Price</p>
+                <p><strong>ISBN:</strong> @item.ISBN</p>
+                <p><strong>Stock:</strong> @item.Stock</p>
+                <p class="description">@Html.Raw(item.Description)</p>
+                <div class="actions">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .book-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .book {
+        max-width: 4000px;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .cover-image {
+        width: 150px;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .book-details {
+        padding: 20px;
+    }
+
+        .book-details h2 {
+            margin-top: 0;
+        }
+
+    .description {
+        margin-top: 10px;
+    }
+
+    .actions {
+        margin-top: 20px;
+    }
+
+        .actions a {
+            margin-right: 10px;
+        }
+</style>

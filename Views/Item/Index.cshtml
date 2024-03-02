@@ -9,13 +9,6 @@
 <div class="book-grid">
     @if (Model != null)
     {
-        @if (User.IsInRole("Admin"))
-        {
-            <div class="admin-buttons">
-                <a asp-action="Create" class="btn btn-primary">Add Book</a>
-                <!-- Other admin buttons for delete and edit can go here -->
-            </div>
-        }
         @foreach (var book in Model)
         {
             <div>
